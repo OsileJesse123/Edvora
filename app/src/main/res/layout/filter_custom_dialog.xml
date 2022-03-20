@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filter_card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:cardBackgroundColor="@color/user_display_black"
+    app:cardCornerRadius="15dp"
+    android:layout_width="229dp"
+    android:layout_height="198dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/filter_card_constraint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="23dp"
+        android:paddingHorizontal="30dp"
+        >
+
+        <EditText
+            android:id="@+id/filter_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/filter"
+            android:textSize="20sp"
+            android:backgroundTint="@color/custom_filter_grey"
+            android:textColorHint="@color/custom_filter_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/state_dropdown_menu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:hint="@string/state"
+            android:layout_marginTop="10dp"
+            app:boxCornerRadiusTopStart="5dp"
+            app:boxCornerRadiusBottomEnd="5dp"
+            app:boxCornerRadiusBottomStart="5dp"
+            app:boxCornerRadiusTopEnd="5dp"
+            app:hintEnabled="false"
+            android:textColorHint="@color/white"
+            app:endIconTint="@color/custom_filter_grey"
+            app:boxBackgroundColor="@color/dropdown_menu_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filter_et">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:hint="@string/state"
+                android:paddingVertical="3dp"
+                android:inputType="none"
+                 />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/city_dropdown_menu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:hint="@string/state"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@color/dropdown_menu_color"
+            app:boxCornerRadiusBottomEnd="5dp"
+            app:boxCornerRadiusBottomStart="5dp"
+            app:boxCornerRadiusTopEnd="5dp"
+            app:boxCornerRadiusTopStart="5dp"
+            app:endIconTint="@color/custom_filter_grey"
+            app:hintEnabled="false"
+            android:layout_marginTop="13dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/state_dropdown_menu">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/city"
+                android:inputType="none"
+                android:paddingVertical="3dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

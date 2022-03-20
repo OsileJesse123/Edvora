@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="custom_filter_height">190dp</dimen>
+    <dimen name="custom_filter_width">228dp</dimen>
+    <dimen name="dropdown_height">197dp</dimen>
+    <dimen name="item_count_1">2dp</dimen>
+    <dimen name="item_count_2">1.1dp</dimen>
+</resources>

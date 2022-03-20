@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="grey">#D0CBCB</color>
+    <color name="light_black">#292929</color>
+    <color name="ride_card_black">#171717</color>
+    <color name="user_display_black">#101010</color>
+    <color name="city_state_button_black">#0A0A0A</color>
+    <color name="custom_filter_grey">#A5A5A5</color>
+    <color name="dropdown_menu_color">#232323</color>
+</resources>
