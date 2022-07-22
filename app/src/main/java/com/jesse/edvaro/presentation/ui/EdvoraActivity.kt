@@ -44,9 +44,10 @@ class EdvoraActivity: AppCompatActivity() {
 
         binding.executePendingBindings()
 
-        viewModel.user.observe(this) {
-            viewModel.setTheNearestRide(it)
-        }
+        viewModel.setTheNearestRide()
+//        viewModel.user.observe(this) {
+//            viewModel.setTheNearestRide(it)
+//        }
 
         viewModel.nearestRides.observe(this) {
             recyclerAdapter = EdvoraRideAdapter(

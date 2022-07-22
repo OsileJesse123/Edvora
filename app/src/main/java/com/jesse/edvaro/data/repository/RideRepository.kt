@@ -20,7 +20,8 @@ class RideRepository @Inject constructor(
     private val userRepo: UserRepo
     ): RideRepo {
 
-    var user = User(0, "", "")
+    override var user = User(0, "", "")
+
 
     override suspend fun getRides(): List<Ride> {
         return try {

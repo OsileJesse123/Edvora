@@ -1,5 +1,6 @@
 package com.jesse.edvaro.presentation.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,14 +39,14 @@ class EdvoraActivityViewModel @Inject constructor(private val rideRepo: RideRepo
     var isFiltered = false
 
     init {
-        setUser()
+        //setUser()
     }
 
     fun getDistance(stationPath: List<Int>): Int{
         return getNearestStationCode(stationPath) - (user.value?.stationCode ?: 0)
     }
 
-    fun setTheNearestRide(theUser: User?){
+    fun setTheNearestRide(){
         viewModelScope.launch{
 //            _nearestRides.value = theUser?.let{
 //                val theRides = rideRepo.getRides()
@@ -53,6 +54,8 @@ class EdvoraActivityViewModel @Inject constructor(private val rideRepo: RideRepo
 //                theRides
 //            }
             _nearestRides.value = rideRepo.getRides()
+            _user.value = rideRepo.user
+            Log.e("VMUser", "User: ${user.value}")
         }
     }
 
@@ -75,11 +78,11 @@ class EdvoraActivityViewModel @Inject constructor(private val rideRepo: RideRepo
         return finalCode
     }
 
-    private fun setUser(){
-        viewModelScope.launch {
-            _user.value = userRepo.getUser()
-        }
-    }
+//    private fun setUser(){
+//        viewModelScope.launch {
+//            _user.value = userRepo.getUser()
+//        }
+//    }
 
     fun setTheStatesToCities(rides: List<Ride>?){
         rides?.let {
