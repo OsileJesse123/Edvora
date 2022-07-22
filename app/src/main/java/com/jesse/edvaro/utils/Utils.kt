@@ -5,7 +5,9 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.jesse.edvaro.data.network.Ride
+import com.jesse.edvaro.data.model.Ride
+import com.jesse.edvaro.data.model.StationCodeToRide
+//import com.jesse.edvaro.data.network.Ride
 import com.jesse.edvaro.presentation.viewModel.EdvoraActivityViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,14 +17,47 @@ enum class RideState{UPCOMING, CURRENT, PAST}
 private val listOfMonths = listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
     "Oct", "Nov", "Dec")
 
-fun <T: ViewModel> Activity.obtainViewModel(viewModelClass: Class<T>): T{
-    val application = this.application as EdvoraApplication
-    val userRepo = application.userRepo
-    val rideRepo = application.rideRepo
-    val viewModelFactory = EdvoraActivityViewModelFactory(rideRepo, userRepo)
+object RideData {
 
-    return ViewModelProvider(this as ViewModelStoreOwner, viewModelFactory).get(viewModelClass)
+    fun getNearestStation(userStation: Int, rides: List<Ride>): List<Ride> {
+        val stationCodeToRides = mutableListOf<StationCodeToRide>()
+        var count = 0
+        val updatedListOfRides = mutableListOf<Ride>()
+
+        rides.forEach{
+                r ->
+            for(path in r.stationPath){
+                if (path >= userStation){
+                    val codeToRide= StationCodeToRide(path, r)
+                    stationCodeToRides.add(codeToRide)
+                    break
+                }
+            }
+        }
+
+        val ridesSize = stationCodeToRides.size
+
+        while(count < ridesSize){
+            val newRide = stationCodeToRides.minByOrNull { it.code }
+            newRide?.let {
+                updatedListOfRides.add(it.ride)
+                stationCodeToRides.remove(it)
+            }
+            count++
+        }
+        return updatedListOfRides
+    }
+
 }
+
+//fun <T: ViewModel> Activity.obtainViewModel(viewModelClass: Class<T>): T{
+//    val application = this.application as EdvoraApplication
+//    val userRepo = application.userRepo
+//    val rideRepo = application.rideRepo
+//    val viewModelFactory = EdvoraActivityViewModelFactory(rideRepo, userRepo)
+//
+//    return ViewModelProvider(this as ViewModelStoreOwner, viewModelFactory).get(viewModelClass)
+//}
 
 //I assume that the Ride object date details(day, month, year and time) are upcoming
 //i.e. in the future. The current date details is obtained from

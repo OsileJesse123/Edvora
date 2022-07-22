@@ -14,12 +14,16 @@ import com.jesse.edvaro.databinding.EdvoraActivityBinding
 import com.jesse.edvaro.databinding.FilterCustomDialogBinding
 import com.jesse.edvaro.presentation.viewModel.EdvoraActivityViewModel
 import com.jesse.edvaro.utils.formatReceivedText
-import com.jesse.edvaro.utils.obtainViewModel
+//import com.jesse.edvaro.utils.obtainViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import androidx.activity.viewModels
 
+@AndroidEntryPoint
 class EdvoraActivity: AppCompatActivity() {
 
     private lateinit var binding: EdvoraActivityBinding
-    private lateinit var viewModel: EdvoraActivityViewModel
+    //private lateinit var viewModel: EdvoraActivityViewModel
+    private val viewModel: EdvoraActivityViewModel by viewModels()
     private lateinit var recyclerAdapter: EdvoraRideAdapter
     private val filterBinding: FilterCustomDialogBinding by lazy {
         FilterCustomDialogBinding.inflate(layoutInflater)
@@ -34,20 +38,21 @@ class EdvoraActivity: AppCompatActivity() {
 
         binding.lifecycleOwner = this
 
-        viewModel = this.obtainViewModel(EdvoraActivityViewModel::class.java)
+        //viewModel = this.obtainViewModel(EdvoraActivityViewModel::class.java)
 
         binding.edvoraViewModel = viewModel
 
         binding.executePendingBindings()
 
-        viewModel.user.observe(this, {
+        viewModel.user.observe(this) {
             viewModel.setTheNearestRide(it)
-        })
+        }
 
-        viewModel.nearestRides.observe(this, {
+        viewModel.nearestRides.observe(this) {
             recyclerAdapter = EdvoraRideAdapter(
                 it,
-                this@EdvoraActivity) { stationPath ->
+                this@EdvoraActivity
+            ) { stationPath ->
                 viewModel.getDistance(stationPath)
             }
             viewModel.setUpcomingAndPastRides(it)
@@ -56,7 +61,7 @@ class EdvoraActivity: AppCompatActivity() {
 
             viewModel.updateCitiesAndStatesList()
             setupRecyclerView(recyclerAdapter)
-        })
+        }
 
         viewModel.citiesAndStatesList.observe(this){
                 citiesAndStatesList ->

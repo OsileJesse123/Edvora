@@ -4,19 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jesse.edvaro.data.network.Ride
+import com.jesse.edvaro.data.model.Ride
+import com.jesse.edvaro.data.model.User
 import com.jesse.edvaro.data.repository.RideRepo
-import com.jesse.edvaro.data.network.User
 import com.jesse.edvaro.data.repository.UserRepo
+import com.jesse.edvaro.utils.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import com.jesse.edvaro.data.network.RideData
-import com.jesse.edvaro.utils.RideState
-import com.jesse.edvaro.utils.UserCurrentDate
-import com.jesse.edvaro.utils.isRideUpcomingOrPastOrCurrent
-import com.jesse.edvaro.utils.mapStatesToCities
+import javax.inject.Inject
 
-class EdvoraActivityViewModel(private val rideRepo: RideRepo,
-                              private val userRepo: UserRepo): ViewModel() {
+@HiltViewModel
+class EdvoraActivityViewModel @Inject constructor(private val rideRepo: RideRepo,
+                                                 private val userRepo: UserRepo): ViewModel() {
 
     private var _nearestRides: MutableLiveData<List<Ride>> = MutableLiveData()
     val nearestRides: LiveData<List<Ride>> get() = _nearestRides

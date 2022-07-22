@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jesse.edvaro.R
-import com.jesse.edvaro.data.network.Ride
+import com.jesse.edvaro.data.model.Ride
 import com.jesse.edvaro.databinding.RideCardItemBinding
 
 class EdvoraRideAdapter(private var rides: List<Ride>?, private val context: Context,
