@@ -59,6 +59,8 @@ class EdvoraActivity: AppCompatActivity() {
             viewModel.setCitiesAndStates(it)
             viewModel.setTheStatesToCities(it)
 
+            recyclerAdapter.submitList(viewModel.nearestRides.value)
+
             viewModel.updateCitiesAndStatesList()
             setupRecyclerView(recyclerAdapter)
         }
@@ -87,18 +89,22 @@ class EdvoraActivity: AppCompatActivity() {
                         tab?.let {
                             when(it.position){
                                 0 -> {
+                                    Log.e("Nearest", "Nearest Rides: ${viewModel.nearestRides.value}")
                                         if(!viewModel.isFiltered){
-                                            recyclerAdapter.setRides(viewModel.nearestRides.value)
+                                            Log.e("Nearest", "Nearest Rides: ${viewModel.nearestRides.value}")
+                                            recyclerAdapter.submitList(viewModel.nearestRides.value)
                                         }
                                 }
                                 1 -> {
-                                    recyclerAdapter.setRides(viewModel.upcomingRides)
+                                    Log.e("Upcoming", "Upcoming Rides")
+                                    recyclerAdapter.submitList(viewModel.upcomingRides)
                                 }
                                 2 -> {
-                                    recyclerAdapter.setRides(viewModel.pastRides)
+                                    Log.e("Past", "Past Rides")
+                                    recyclerAdapter.submitList(viewModel.pastRides)
                                 }
                             }
-                            recyclerAdapter.notifyDataSetChanged()
+                            //recyclerAdapter.notifyDataSetChanged()
                             Log.d("IsItFiltered", "isFiltered: ${viewModel.isFiltered}")
                         }
                     }
@@ -144,10 +150,9 @@ class EdvoraActivity: AppCompatActivity() {
                 if(stateText.isNotEmpty() || cityText.isNotEmpty()){
                     val filteredRides = viewModel
                     .filterListByStatesAndOrCities(cityText, stateText)
-                    recyclerAdapter?.let {
-                        recyclerAdapter.setRides(filteredRides)
-                        recyclerAdapter.notifyDataSetChanged()
-                    }
+                    recyclerAdapter.submitList(filteredRides)
+                    //recyclerAdapter.notifyDataSetChanged()
+
                     val nearestRideTab = binding.rideCategoryTab.getTabAt(0)
                     binding.rideCategoryTab.selectTab(nearestRideTab, true)
                     viewModel.isFiltered = false
