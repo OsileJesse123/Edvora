@@ -47,10 +47,12 @@ class EdvoraActivityViewModel @Inject constructor(private val rideRepo: RideRepo
 
     fun setTheNearestRide(theUser: User?){
         viewModelScope.launch{
-            _nearestRides.value = theUser?.let{
-                val theRides = rideRepo.getRides()
-                RideData.getNearestStation(it.stationCode, theRides)
-            }
+//            _nearestRides.value = theUser?.let{
+//                val theRides = rideRepo.getRides()
+//                //RideData.getNearestStation(it.stationCode, theRides)
+//                theRides
+//            }
+            _nearestRides.value = rideRepo.getRides()
         }
     }
 
